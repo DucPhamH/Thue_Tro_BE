@@ -4,9 +4,16 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const { envConfig } = require("./constants/config");
+const { connectDB } = require("./services/database.services");
 
+const userRoutes = require("./routes/user.routes");
+const roomRoutes = require("./routes/room.routes");
+const adminRoutes = require("./routes/admin.routes");
+const hostRoutes = require("./routes/host.routes");
+
+const port = envConfig.port;
 const app = express();
-const port = 3000;
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -16,6 +23,7 @@ const limiter = rateLimit({
   // store: ... , // Use an external store for more precise rate limiting
 });
 
+connectDB();
 app.set("trust proxy", 1); // Trust first proxy
 app.use(limiter);
 app.use(morgan("combined"));
@@ -25,8 +33,13 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/room", roomRoutes);
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/host", hostRoutes);
+
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Chào mừng tới api phòng trọ!");
 });
 
 app.listen(port, () => {
