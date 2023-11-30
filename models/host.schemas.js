@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const HostSchema = new mongoose.Schema()(
+const HostSchema = new mongoose.Schema(
   {
     user_name: { type: String, maxlength: 160, required: true },
     password: { type: String, maxlength: 160, required: true },

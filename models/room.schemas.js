@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const RoomSchema = new mongoose.Schema()(
+const RoomSchema = new mongoose.Schema(
   {
     name: { type: String, maxlength: 160, required: true },
     price: { type: Number, required: true },
@@ -21,9 +21,15 @@ const RoomSchema = new mongoose.Schema()(
     type_of_room: { type: Number, required: true },
     describe: { type: String, maxlength: 300, required: true },
     is_accepted: { type: Boolean, required: true },
+    video_url: { type: String, required: true },
     host_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "host",
+      required: true,
+    },
+    district_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "district",
       required: true,
     },
   },
