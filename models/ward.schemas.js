@@ -3,11 +3,8 @@ const mongoose = require("mongoose");
 const WardSchemas = new mongoose.Schema(
   {
     ward: { type: String },
-    district_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "district",
-      required: true,
-    },
+    code: { type: String },
+    parent_code: { type: String },
   },
   {
     timestamps: true,

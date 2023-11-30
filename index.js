@@ -11,6 +11,7 @@ const userRoutes = require("./routes/user.routes");
 const roomRoutes = require("./routes/room.routes");
 const adminRoutes = require("./routes/admin.routes");
 const hostRoutes = require("./routes/host.routes");
+const defaultErrorHander = require("./middlewares/error.middlewares");
 
 const port = envConfig.port;
 const app = express();
@@ -41,6 +42,8 @@ app.use("/api/v1/host", hostRoutes);
 app.get("/", (req, res) => {
   res.send("Chào mừng tới api phòng trọ!");
 });
+
+app.use(defaultErrorHander);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

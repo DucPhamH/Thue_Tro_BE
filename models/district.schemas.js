@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 const DistrictSchema = new mongoose.Schema(
   {
-    city: { type: String },
     district: { type: String },
+    code: { type: String },
+    parent_code: { type: String },
   },
   {
     timestamps: true,

@@ -32,6 +32,11 @@ const RoomSchema = new mongoose.Schema(
       ref: "district",
       required: true,
     },
+    ward_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ward",
+      required: true,
+    },
   },
   {
     timestamps: true,
