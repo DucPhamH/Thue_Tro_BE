@@ -16,4 +16,11 @@ const ROOM_MESSAGE = {
   TYPE_OF_ROOM_NOT_FOUND: "Type of room must be 0 or 1 or 2",
 };
 
-module.exports = { MESSAGE, ROOM_MESSAGE };
+const ADDRESS_MESSAGE = {
+  DISTRICT_NOT_FOUND: "District not found",
+  GET_ALL_DISTRICT_SUCCESS: "Get all district success",
+  WARD_NOT_FOUND: "Ward not found",
+  GET_WARD_IN_DISTRICT_SUCCESS: "Get ward in district success",
+};
+
+module.exports = { MESSAGE, ROOM_MESSAGE, ADDRESS_MESSAGE };

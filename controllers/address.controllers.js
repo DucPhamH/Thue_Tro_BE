@@ -1,27 +1,34 @@
-const districtModel = require("../models/district.schemas");
-const wardModel = require("../models/ward.schemas");
+const { ADDRESS_MESSAGE } = require("../constants/message");
+const STATUS = require("../constants/status");
+const addressServices = require("../services/address.services");
+const { ErrorWithStatus } = require("../utils/errors");
 
-const getAddress = async (req, res) => {
-  const address = await districtModel.aggregate([
-    {
-      $match: {
-        code: "001",
-      },
-    },
-    {
-      $lookup: {
-        from: "ward",
-        localField: "code",
-        foreignField: "parent_code",
-        as: "wards",
-      },
-    },
-  ]);
-  //   const ward = await wardModel.find({ parent_code: "00001" });
-
-  //   const address = await districtModel.find({ code: "001" }).populate("wards");
-  // .populate({ path: "wards", model: "ward", match: { code: "001" } });
-  res.status(200).json({ message: "Get address successfully", address });
+const getAllDistrict = async (req, res) => {
+  const districts = await addressServices.getAllDistrict();
+  if (!districts) {
+    throw new ErrorWithStatus({
+      message: ADDRESS_MESSAGE.DISTRICT_NOT_FOUND,
+      status: STATUS.BAD_REQUEST,
+    });
+  }
+  return res.json({
+    message: ADDRESS_MESSAGE.GET_DISTRICT_SUCCESS,
+    districts: districts,
+  });
+};
+const getAllWardInDistrict = async (req, res) => {
+  const { id } = req.params;
+  const wards = await addressServices.getAllWardInDistrict({ id });
+  if (!wards) {
+    throw new ErrorWithStatus({
+      message: ADDRESS_MESSAGE.WARD_NOT_FOUND,
+      status: STATUS.BAD_REQUEST,
+    });
+  }
+  return res.json({
+    message: ADDRESS_MESSAGE.GET_WARD_IN_DISTRICT_SUCCESS,
+    wards: wards,
+  });
 };
 
-module.exports = { getAddress };
+module.exports = { getAllDistrict, getAllWardInDistrict };

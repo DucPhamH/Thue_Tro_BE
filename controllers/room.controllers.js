@@ -65,7 +65,6 @@ const createRoom = async (req, res) => {
     room_id: newRoom._id,
   }));
   const newImages = await roomServices.createImageRoom(imagesObj);
-  console.log(newImages);
   if (!newImages) {
     throw new ErrorWithStatus({
       message: ROOM_MESSAGE.ROOM_IMAGE_NOT_CREATED,
