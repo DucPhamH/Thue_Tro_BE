@@ -39,10 +39,19 @@ const RoomSchema = new mongoose.Schema(
     },
   },
   {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
     timestamps: true,
     collection: "room",
   }
 );
+
+RoomSchema.virtual("images", {
+  ref: "room_image",
+  localField: "_id",
+  foreignField: "room_id",
+  justOne: false,
+});
 
 const RoomModel = mongoose.model("room", RoomSchema);
 

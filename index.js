@@ -11,6 +11,7 @@ const userRoutes = require("./routes/user.routes");
 const roomRoutes = require("./routes/room.routes");
 const adminRoutes = require("./routes/admin.routes");
 const hostRoutes = require("./routes/host.routes");
+const addressRoutes = require("./routes/address.routes");
 const defaultErrorHander = require("./middlewares/error.middlewares");
 
 const port = envConfig.port;
@@ -38,6 +39,7 @@ app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/room", roomRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/host", hostRoutes);
+app.use("/api/v1/address", addressRoutes);
 
 app.get("/", (req, res) => {
   res.send("Chào mừng tới api phòng trọ!");
