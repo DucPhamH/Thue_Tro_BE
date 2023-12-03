@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const districtModel = require("./district.schemas");
+const wardModel = require("./ward.schemas");
+const hostModel = require("./host.schemas");
 
 const RoomSchema = new mongoose.Schema(
   {
@@ -37,6 +40,7 @@ const RoomSchema = new mongoose.Schema(
       ref: "ward",
       required: true,
     },
+    full_field: { type: String },
   },
   {
     toJSON: { virtuals: true },
@@ -51,6 +55,64 @@ RoomSchema.virtual("images", {
   localField: "_id",
   foreignField: "room_id",
   justOne: false,
+});
+
+RoomSchema.pre("save", async function (next) {
+  try {
+    const district = await districtModel.findById(this.district_id);
+    const ward = await wardModel.findById(this.ward_id);
+    const host = await hostModel.findById(this.host_id);
+    this.full_field = `${this.name}, ${this.price}, ${this.area}, ${this.number_or_people} người ,${this.address}, ${ward.ward}, ${district.district}, ${this.describe}, ${host.user_name}, ${host.phone_number}, ${host.email}`;
+
+    if (this.is_have_parking_lot) {
+      this.full_field += ", có chỗ để xe";
+    }
+    if (this.is_new) {
+      this.full_field += ", mới xây";
+    }
+    if (this.is_high_security) {
+      this.full_field += ", an ninh cao";
+    }
+    if (this.is_checked_information) {
+      this.full_field += ", đã kiểm tra thông tin";
+    }
+    if (this.is_have_bed) {
+      this.full_field += ", có giường";
+    }
+    if (this.is_have_wardrobe) {
+      this.full_field += ", có tủ quần áo";
+    }
+    if (this.is_have_dinning_table) {
+      this.full_field += ", có bàn ăn";
+    }
+    if (this.is_have_refrigerator) {
+      this.full_field += ", có tủ lạnh";
+    }
+    if (this.is_have_television) {
+      this.full_field += ", có tivi";
+    }
+    if (this.is_have_kitchen) {
+      this.full_field += ", có bếp";
+    }
+    if (this.is_have_washing_machine) {
+      this.full_field += ", có máy giặt";
+    }
+    if (this.type_of_room === 0) {
+      this.full_field += ", phòng trọ";
+    }
+    if (this.type_of_room === 1) {
+      this.full_field += ", nhà trọ";
+    }
+    if (this.type_of_room === 2) {
+      this.full_field += ", chung cư mini";
+    }
+    if (this.is_accepted) {
+      this.full_field += ", đã được duyệt";
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
 const RoomModel = mongoose.model("room", RoomSchema);

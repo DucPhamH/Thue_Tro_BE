@@ -74,4 +74,49 @@ const createRoom = async (req, res) => {
   res.json({ message: ROOM_MESSAGE.ROOM_CREATED, newRoom });
 };
 
-module.exports = { createRoom };
+const getAllRooms = async (req, res) => {
+  let { search, page, limit } = req.query;
+  page = parseInt(page) || 1;
+  limit = parseInt(limit) || 10;
+  let conditions = {};
+  if (search) {
+    conditions.$or = [
+      { name: { $regex: search, $options: "i" } },
+      { address: { $regex: search, $options: "i" } },
+      { describe: { $regex: search, $options: "i" } },
+      { full_field: { $regex: search, $options: "i" } },
+    ];
+  }
+  console.log(conditions);
+  const { rooms, totalPage } = await roomServices.getAllRooms({
+    conditions,
+    page,
+    limit,
+  });
+  if (!rooms) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_NOT_FOUND,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  res.json({
+    message: ROOM_MESSAGE.ROOM_FOUND,
+    rooms,
+    totalPage,
+    page,
+    limit,
+  });
+};
+
+const getRoom = async (req, res) => {
+  const { id } = req.params;
+  const room = await roomServices.getRoom(id);
+  if (!room) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_NOT_FOUND,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  res.json({ message: ROOM_MESSAGE.ROOM_FOUND, room });
+};
+module.exports = { createRoom, getAllRooms, getRoom };

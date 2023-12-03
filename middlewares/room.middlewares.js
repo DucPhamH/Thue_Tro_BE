@@ -1,7 +1,6 @@
 const { checkSchema } = require("express-validator");
 const validate = require("../utils/validation");
 const { TypeOfRoom } = require("../constants/enum");
-const { ErrorWithStatus } = require("../utils/errors");
 const { ROOM_MESSAGE } = require("../constants/message");
 
 const createRoomValidator = validate(
@@ -142,4 +141,36 @@ const createRoomValidator = validate(
   ["body"]
 );
 
-module.exports = { createRoomValidator };
+const getAllRoomsValidator = validate(
+  checkSchema({
+    search: {
+      optional: true,
+      trim: true,
+    },
+    page: {
+      optional: true,
+      trim: true,
+    },
+    limit: {
+      optional: true,
+      trim: true,
+    },
+  }),
+  ["query"]
+);
+
+const getRoomValidator = validate(
+  checkSchema({
+    id: {
+      notEmpty: true,
+      trim: true,
+    },
+  }),
+  ["params"]
+);
+
+module.exports = {
+  createRoomValidator,
+  getAllRoomsValidator,
+  getRoomValidator,
+};

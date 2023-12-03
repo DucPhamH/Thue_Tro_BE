@@ -7,6 +7,7 @@ const ROOM_MESSAGE = {
   ROOM_UPDATED: "Room updated",
   ROOM_DELETED: "Room deleted",
   ROOM_NOT_FOUND: "Room not found",
+  ROOM_FOUND: "Room found",
   ROOM_NOT_CREATED: "Room not created",
   ROOM_IMAGE_NOT_FOUND: "Room image not found",
   ROOM_IMAGE_CREATED: "Room image created",
