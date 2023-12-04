@@ -22,7 +22,7 @@ const RoomSchema = new mongoose.Schema(
     number_or_people: { type: Number, required: true },
     address: { type: String, maxlength: 300, required: true },
     type_of_room: { type: Number, required: true },
-    describe: { type: String, maxlength: 300, required: true },
+    describe: { type: String, required: true },
     is_accepted: { type: Boolean, required: true },
     video_url: { type: String, required: true },
     host_id: {
