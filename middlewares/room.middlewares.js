@@ -84,9 +84,6 @@ const createRoomValidator = validate(
     },
     address: {
       notEmpty: true,
-      isLength: {
-        options: { min: 3, max: 300 },
-      },
       trim: true,
     },
     type_of_room: {
@@ -108,9 +105,6 @@ const createRoomValidator = validate(
     },
     describe: {
       notEmpty: true,
-      isLength: {
-        options: { min: 3, max: 300 },
-      },
       trim: true,
     },
     is_accepted: {
