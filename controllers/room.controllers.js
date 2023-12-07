@@ -1,4 +1,5 @@
 const { ROOM_MESSAGE } = require("../constants/message");
+const STATUS = require("../constants/status");
 const roomServices = require("../services/room.services");
 const { ErrorWithStatus } = require("../utils/errors");
 
