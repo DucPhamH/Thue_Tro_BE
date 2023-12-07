@@ -1,5 +1,6 @@
 const { ROOM_MESSAGE } = require("../constants/message");
 const roomServices = require("../services/room.services");
+const { ErrorWithStatus } = require("../utils/errors");
 
 const createRoom = async (req, res) => {
   const {
