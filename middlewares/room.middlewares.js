@@ -77,6 +77,11 @@ const createRoomValidator = validate(
       isBoolean: true,
       trim: true,
     },
+    is_have_owner: {
+      notEmpty: true,
+      isBoolean: true,
+      trim: true,
+    },
     number_or_people: {
       notEmpty: true,
       isNumeric: true,

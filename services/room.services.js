@@ -16,6 +16,7 @@ class RoomServices {
       .populate("ward_id")
       .populate("district_id")
       .populate("host_id")
+      .populate("images")
       .skip((page - 1) * limit)
       .limit(limit);
 

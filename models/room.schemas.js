@@ -19,6 +19,7 @@ const RoomSchema = new mongoose.Schema(
     is_have_television: { type: Boolean, required: true },
     is_have_kitchen: { type: Boolean, required: true },
     is_have_washing_machine: { type: Boolean, required: true },
+    is_have_owner: { type: Boolean, required: true },
     number_or_people: { type: Number, required: true },
     address: { type: String, maxlength: 300, required: true },
     type_of_room: { type: Number, required: true },
@@ -108,6 +109,9 @@ RoomSchema.pre("save", async function (next) {
     }
     if (this.is_accepted) {
       this.full_field += ", đã được duyệt";
+    }
+    if (this.is_have_owner) {
+      this.full_field += ", có chung chủ";
     }
     next();
   } catch (err) {
