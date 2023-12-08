@@ -12,7 +12,7 @@ const getAllDistrict = async (req, res) => {
     });
   }
   return res.json({
-    message: ADDRESS_MESSAGE.GET_DISTRICT_SUCCESS,
+    message: ADDRESS_MESSAGE.GET_ALL_DISTRICT_SUCCESS,
     districts: districts,
   });
 };
