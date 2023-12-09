@@ -5,6 +5,7 @@ const {
   createRoom,
   getAllRooms,
   getRoom,
+  getRoomRandom,
 } = require("../controllers/room.controllers");
 const {
   createRoomValidator,
@@ -15,4 +16,5 @@ const {
 router.post("/", createRoomValidator, wrapRequestHandler(createRoom));
 router.get("/", getAllRoomsValidator, wrapRequestHandler(getAllRooms));
 router.get("/:id", getRoomValidator, wrapRequestHandler(getRoom));
+router.get("/randomRoom/random", wrapRequestHandler(getRoomRandom));
 module.exports = router;

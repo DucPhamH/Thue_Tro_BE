@@ -22,7 +22,7 @@ class RoomServices {
 
     const total = await RoomModel.countDocuments(conditions);
     const totalPage = Math.ceil(total / limit);
-    return { rooms, totalPage };
+    return { rooms, totalPage, total };
   }
   async getRoom(id) {
     const room = await RoomModel.findById(id)
@@ -31,6 +31,13 @@ class RoomServices {
       .populate("host_id")
       .populate("images");
     return room;
+  }
+  async getRoomRandom({ randomIndexs, limit }) {
+    const randomRooms = await RoomModel.find({})
+      .populate("images")
+      .skip(randomIndexs)
+      .limit(limit);
+    return randomRooms;
   }
 }
 

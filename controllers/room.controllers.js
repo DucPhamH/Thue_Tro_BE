@@ -1,5 +1,6 @@
 const { ROOM_MESSAGE } = require("../constants/message");
 const STATUS = require("../constants/status");
+const RoomModel = require("../models/room.schemas");
 const roomServices = require("../services/room.services");
 const { ErrorWithStatus } = require("../utils/errors");
 
@@ -75,7 +76,7 @@ const createRoom = async (req, res) => {
       status: STATUS.BAD_REQUEST,
     });
   }
-  res.json({ message: ROOM_MESSAGE.ROOM_CREATED, newRoom });
+  return res.json({ message: ROOM_MESSAGE.ROOM_CREATED, newRoom });
 };
 
 const getAllRooms = async (req, res) => {
@@ -92,7 +93,7 @@ const getAllRooms = async (req, res) => {
     ];
   }
   console.log(conditions);
-  const { rooms, totalPage } = await roomServices.getAllRooms({
+  const { rooms, totalPage, total } = await roomServices.getAllRooms({
     conditions,
     page,
     limit,
@@ -109,6 +110,7 @@ const getAllRooms = async (req, res) => {
     totalPage,
     page,
     limit,
+    total,
   });
 };
 
@@ -121,6 +123,31 @@ const getRoom = async (req, res) => {
       status: STATUS.NOT_FOUND,
     });
   }
-  res.json({ message: ROOM_MESSAGE.ROOM_FOUND, room });
+  return res.json({ message: ROOM_MESSAGE.ROOM_FOUND, room });
 };
-module.exports = { createRoom, getAllRooms, getRoom };
+
+const getRoomRandom = async (req, res) => {
+  const count = await RoomModel.countDocuments();
+  const randomIndexes = [];
+  while (randomIndexes.length < 4) {
+    const randomIndex = Math.floor(Math.random() * count);
+    if (!randomIndexes.includes(randomIndex)) {
+      randomIndexes.push(randomIndex);
+    }
+  }
+  console.log(count);
+  console.log(randomIndexes);
+  const randomRooms = await roomServices.getRoomRandom({
+    randomIndexs: randomIndexes[0],
+    limit: 4,
+  });
+  if (!randomRooms) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_NOT_FOUND,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  return res.json({ message: ROOM_MESSAGE.ROOM_FOUND, randomRooms });
+};
+
+module.exports = { createRoom, getAllRooms, getRoom, getRoomRandom };
