@@ -130,12 +130,12 @@ const getRoomRandom = async (req, res) => {
   const count = await RoomModel.countDocuments();
   const randomIndexes = [];
   while (randomIndexes.length < 4) {
-    const randomIndex = Math.floor(Math.random() * count);
+    const randomIndex = Math.floor(Math.random() * (count - 4));
     if (!randomIndexes.includes(randomIndex)) {
       randomIndexes.push(randomIndex);
     }
   }
-  console.log(count);
+  console.log(count - 4);
   console.log(randomIndexes);
   const randomRooms = await roomServices.getRoomRandom({
     randomIndexs: randomIndexes[0],
