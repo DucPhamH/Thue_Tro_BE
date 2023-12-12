@@ -80,7 +80,7 @@ const createRoom = async (req, res) => {
 };
 
 const getAllRooms = async (req, res) => {
-  let { search, page, limit } = req.query;
+  let { search, page, limit, address } = req.query;
   page = parseInt(page) || 1;
   limit = parseInt(limit) || 10;
   let conditions = {};
@@ -91,6 +91,9 @@ const getAllRooms = async (req, res) => {
       { describe: { $regex: search, $options: "i" } },
       { full_field: { $regex: search, $options: "i" } },
     ];
+  }
+  if (address) {
+    conditions.ward_id = address;
   }
   console.log(conditions);
   const { rooms, totalPage, total } = await roomServices.getAllRooms({

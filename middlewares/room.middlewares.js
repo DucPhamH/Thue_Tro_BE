@@ -146,6 +146,10 @@ const getAllRoomsValidator = validate(
       optional: true,
       trim: true,
     },
+    address: {
+      optional: true,
+      trim: true,
+    },
     page: {
       optional: true,
       trim: true,
@@ -163,6 +167,7 @@ const getRoomValidator = validate(
     id: {
       notEmpty: true,
       trim: true,
+      isMongoId: true,
     },
   }),
   ["params"]
