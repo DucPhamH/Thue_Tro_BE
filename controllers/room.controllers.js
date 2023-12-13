@@ -231,7 +231,10 @@ const getAllRooms = async (req, res) => {
       conditions.number_or_people = { $lte: 4 };
     }
     if (parseInt(number_or_people) === 5) {
-      conditions.number_or_people = { $gte: 5 };
+      conditions.number_or_people = { $lte: 5 };
+    }
+    if (parseInt(number_or_people) === 6) {
+      conditions.number_or_people = { $gt: 5 };
     }
   }
 
