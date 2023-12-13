@@ -80,9 +80,34 @@ const createRoom = async (req, res) => {
 };
 
 const getAllRooms = async (req, res) => {
-  let { search, page, limit, address } = req.query;
+  let {
+    search,
+    page,
+    limit,
+    address,
+    type,
+    sort,
+    price_max,
+    price_min,
+    area_min,
+    area_max,
+    is_have_parking_lot,
+    is_new,
+    is_high_security,
+    is_have_owner,
+    is_have_bed,
+    is_have_wardrobe,
+    is_have_dinning_table,
+    is_have_refrigerator,
+    is_have_television,
+    is_have_kitchen,
+    is_have_washing_machine,
+    number_or_people,
+  } = req.query;
   page = parseInt(page) || 1;
   limit = parseInt(limit) || 10;
+  sort = parseInt(sort) || 1;
+
   let conditions = {};
   if (search) {
     conditions.$or = [
@@ -95,11 +120,127 @@ const getAllRooms = async (req, res) => {
   if (address) {
     conditions.ward_id = address;
   }
+  if (type) {
+    conditions.type_of_room = parseInt(type);
+  }
+  if (price_max && price_min) {
+    conditions.price = { $gte: parseInt(price_min), $lte: parseInt(price_max) };
+  }
+  if (area_min && area_max) {
+    conditions.area = { $gte: Number(area_min), $lte: Number(area_max) };
+  }
+  if (is_have_parking_lot) {
+    if (is_have_parking_lot === "true") {
+      conditions.is_have_parking_lot = true;
+    }
+    if (is_have_parking_lot === "false") {
+      conditions.is_have_parking_lot = false;
+    }
+  }
+  if (is_new) {
+    if (is_new === "true") {
+      conditions.is_new = true;
+    }
+    if (is_new === "false") {
+      conditions.is_new = false;
+    }
+  }
+  if (is_high_security) {
+    if (is_high_security === "true") {
+      conditions.is_high_security = true;
+    }
+    if (is_high_security === "false") {
+      conditions.is_high_security = false;
+    }
+  }
+  if (is_have_owner) {
+    if (is_have_owner === "true") {
+      conditions.is_have_owner = true;
+    }
+    if (is_have_owner === "false") {
+      conditions.is_have_owner = false;
+    }
+  }
+  if (is_have_bed) {
+    if (is_have_bed === "true") {
+      conditions.is_have_bed = true;
+    }
+    if (is_have_bed === "false") {
+      conditions.is_have_bed = false;
+    }
+  }
+  if (is_have_wardrobe) {
+    if (is_have_wardrobe === "true") {
+      conditions.is_have_wardrobe = true;
+    }
+    if (is_have_wardrobe === "false") {
+      conditions.is_have_wardrobe = false;
+    }
+  }
+  if (is_have_dinning_table) {
+    if (is_have_dinning_table === "true") {
+      conditions.is_have_dinning_table = true;
+    }
+    if (is_have_dinning_table === "false") {
+      conditions.is_have_dinning_table = false;
+    }
+  }
+  if (is_have_refrigerator) {
+    if (is_have_refrigerator === "true") {
+      conditions.is_have_refrigerator = true;
+    }
+    if (is_have_refrigerator === "false") {
+      conditions.is_have_refrigerator = false;
+    }
+  }
+  if (is_have_television) {
+    if (is_have_television === "true") {
+      conditions.is_have_television = true;
+    }
+    if (is_have_television === "false") {
+      conditions.is_have_television = false;
+    }
+  }
+  if (is_have_kitchen) {
+    if (is_have_kitchen === "true") {
+      conditions.is_have_kitchen = true;
+    }
+    if (is_have_kitchen === "false") {
+      conditions.is_have_kitchen = false;
+    }
+  }
+  if (is_have_washing_machine) {
+    if (is_have_washing_machine === "true") {
+      conditions.is_have_washing_machine = true;
+    }
+    if (is_have_washing_machine === "false") {
+      conditions.is_have_washing_machine = false;
+    }
+  }
+  if (number_or_people) {
+    if (parseInt(number_or_people) === 1) {
+      conditions.number_or_people = { $lte: 1 };
+    }
+    if (parseInt(number_or_people) === 2) {
+      conditions.number_or_people = { $lte: 2 };
+    }
+    if (parseInt(number_or_people) === 3) {
+      conditions.number_or_people = { $lte: 3 };
+    }
+    if (parseInt(number_or_people) === 4) {
+      conditions.number_or_people = { $lte: 4 };
+    }
+    if (parseInt(number_or_people) === 5) {
+      conditions.number_or_people = { $gte: 5 };
+    }
+  }
+
   console.log(conditions);
   const { rooms, totalPage, total } = await roomServices.getAllRooms({
     conditions,
     page,
     limit,
+    sort,
   });
   if (!rooms) {
     throw new ErrorWithStatus({

@@ -15,6 +15,8 @@ const ROOM_MESSAGE = {
   ROOM_IMAGE_UPDATED: "Room image updated",
   ROOM_IMAGE_NOT_CREATED: "Room image not created",
   TYPE_OF_ROOM_NOT_FOUND: "Type of room must be 0 or 1 or 2",
+  PRICE_MAX_LESS_THAN_PRICE_MIN: "Price max must be greater than price min",
+  AREA_MAX_LESS_THAN_AREA_MIN: "Area max must be greater than area min",
 };
 
 const ADDRESS_MESSAGE = {

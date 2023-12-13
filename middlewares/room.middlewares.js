@@ -146,8 +146,114 @@ const getAllRoomsValidator = validate(
       optional: true,
       trim: true,
     },
+    type: {
+      optional: true,
+      isNumeric: true,
+      trim: true,
+    },
+    sort: {
+      optional: true,
+      isNumeric: true,
+      trim: true,
+    },
     address: {
       optional: true,
+      trim: true,
+    },
+    price_min: {
+      optional: true,
+      isNumeric: true,
+      trim: true,
+    },
+    price_max: {
+      optional: true,
+      isNumeric: true,
+      custom: {
+        options: async (value, { req }) => {
+          if (parseInt(value) < parseInt(req.query.price_min)) {
+            throw new Error(ROOM_MESSAGE.PRICE_MAX_LESS_THAN_PRICE_MIN);
+          }
+          return true;
+        },
+      },
+      trim: true,
+    },
+    area_min: {
+      optional: true,
+      isNumeric: true,
+      trim: true,
+    },
+    area_max: {
+      optional: true,
+      isNumeric: true,
+      custom: {
+        options: async (value, { req }) => {
+          if (Number(value) < Number(req.query.area_min)) {
+            throw new Error(ROOM_MESSAGE.AREA_MAX_LESS_THAN_AREA_MIN);
+          }
+          return true;
+        },
+      },
+      trim: true,
+    },
+    is_have_parking_lot: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_new: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_high_security: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_owner: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_bed: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_wardrobe: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_dinning_table: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_refrigerator: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_television: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_kitchen: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_washing_machine: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    number_or_people: {
+      optional: true,
+      isNumeric: true,
       trim: true,
     },
     page: {

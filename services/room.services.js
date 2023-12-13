@@ -11,12 +11,13 @@ class RoomServices {
     const newRoom = await RoomModel.create(room);
     return newRoom;
   }
-  async getAllRooms({ conditions, page, limit }) {
+  async getAllRooms({ conditions, page, limit, sort }) {
     const rooms = await RoomModel.find(conditions)
       .populate("ward_id")
       .populate("district_id")
       .populate("host_id")
       .populate("images")
+      .sort({ price: sort })
       .skip((page - 1) * limit)
       .limit(limit);
 
