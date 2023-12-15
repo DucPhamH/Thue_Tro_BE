@@ -276,17 +276,17 @@ const getRoom = async (req, res) => {
 const getRoomRandom = async (req, res) => {
   const count = await RoomModel.countDocuments();
   const randomIndexes = [];
-  while (randomIndexes.length < 4) {
-    const randomIndex = Math.floor(Math.random() * (count - 4));
+  while (randomIndexes.length < 8) {
+    const randomIndex = Math.floor(Math.random() * (count - 8));
     if (!randomIndexes.includes(randomIndex)) {
       randomIndexes.push(randomIndex);
     }
   }
-  console.log(count - 4);
+  console.log(count - 8);
   console.log(randomIndexes);
   const randomRooms = await roomServices.getRoomRandom({
     randomIndexs: randomIndexes[0],
-    limit: 4,
+    limit: 8,
   });
   if (!randomRooms) {
     throw new ErrorWithStatus({
@@ -298,48 +298,72 @@ const getRoomRandom = async (req, res) => {
 };
 
 const countServices = async (req, res) => {
-  const { key } = req.query;
-  const count = await roomServices.countService(key);
-  if (!count) {
+  const {
+    count_bed,
+    count_wardrobe,
+    count_dining_table,
+    count_refrigerator,
+    count_television,
+    count_kitchen,
+    count_washing_machine,
+  } = await roomServices.countService();
+  if (
+    !count_bed &&
+    !count_wardrobe &&
+    !count_dining_table &&
+    !count_refrigerator &&
+    !count_television &&
+    !count_kitchen &&
+    !count_washing_machine
+  ) {
     throw new ErrorWithStatus({
       message: ROOM_MESSAGE.ROOM_NOT_FOUND,
       status: STATUS.NOT_FOUND,
     });
   }
-  return res.json({ message: ROOM_MESSAGE.ROOM_FOUND, count });
+  return res.json({
+    message: ROOM_MESSAGE.ROOM_FOUND,
+    count_bed,
+    count_wardrobe,
+    count_dining_table,
+    count_refrigerator,
+    count_television,
+    count_kitchen,
+    count_washing_machine,
+  });
 };
 
 const countPeoples = async (req, res) => {
-  const { number_or_people } = req.query;
-  const conditionsPeople = {};
-  if (number_or_people) {
-    if (parseInt(number_or_people) === 1) {
-      conditionsPeople.number_or_people = { $lte: 1 };
-    }
-    if (parseInt(number_or_people) === 2) {
-      conditionsPeople.number_or_people = { $lte: 2 };
-    }
-    if (parseInt(number_or_people) === 3) {
-      conditionsPeople.number_or_people = { $lte: 3 };
-    }
-    if (parseInt(number_or_people) === 4) {
-      conditionsPeople.number_or_people = { $lte: 4 };
-    }
-    if (parseInt(number_or_people) === 5) {
-      conditionsPeople.number_or_people = { $lte: 5 };
-    }
-    if (parseInt(number_or_people) === 6) {
-      conditionsPeople.number_or_people = { $gt: 5 };
-    }
-  }
-  const count = await roomServices.countPeople(conditionsPeople);
-  if (!count) {
+  const {
+    one_people,
+    two_people,
+    three_people,
+    four_people,
+    five_people,
+    six_people,
+  } = await roomServices.countPeople();
+  if (
+    !one_people &&
+    !two_people &&
+    !three_people &&
+    !four_people &&
+    !five_people &&
+    !six_people
+  ) {
     throw new ErrorWithStatus({
       message: ROOM_MESSAGE.ROOM_NOT_FOUND,
       status: STATUS.NOT_FOUND,
     });
   }
-  return res.json({ message: ROOM_MESSAGE.ROOM_FOUND, count });
+  return res.json({
+    message: ROOM_MESSAGE.ROOM_FOUND,
+    one_people,
+    two_people,
+    three_people,
+    four_people,
+    five_people,
+    six_people,
+  });
 };
 
 module.exports = {

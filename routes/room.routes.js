@@ -13,22 +13,12 @@ const {
   createRoomValidator,
   getAllRoomsValidator,
   getRoomValidator,
-  countServiceValidator,
-  countPeopleValidator,
 } = require("../middlewares/room.middlewares");
 
 router.post("/", createRoomValidator, wrapRequestHandler(createRoom));
 router.get("/", getAllRoomsValidator, wrapRequestHandler(getAllRooms));
 router.get("/:id", getRoomValidator, wrapRequestHandler(getRoom));
 router.get("/randomRoom/random", wrapRequestHandler(getRoomRandom));
-router.get(
-  "/countServices/count",
-  countServiceValidator,
-  wrapRequestHandler(countServices)
-);
-router.get(
-  "/countPeoples/count",
-  countPeopleValidator,
-  wrapRequestHandler(countPeoples)
-);
+router.get("/countServices/count", wrapRequestHandler(countServices));
+router.get("/countPeoples/count", wrapRequestHandler(countPeoples));
 module.exports = router;
