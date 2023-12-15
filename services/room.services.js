@@ -40,6 +40,13 @@ class RoomServices {
       .limit(limit);
     return randomRooms;
   }
+  async countService(key) {
+    console.log(key);
+    const obj = { [key]: true };
+    console.log(obj);
+    const count = await RoomModel.find(obj).countDocuments();
+    return count;
+  }
 }
 
 const roomServices = new RoomServices();

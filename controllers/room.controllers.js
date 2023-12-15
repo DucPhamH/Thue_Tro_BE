@@ -297,4 +297,22 @@ const getRoomRandom = async (req, res) => {
   return res.json({ message: ROOM_MESSAGE.ROOM_FOUND, randomRooms });
 };
 
-module.exports = { createRoom, getAllRooms, getRoom, getRoomRandom };
+const countServices = async (req, res) => {
+  const { key } = req.query;
+  const count = await roomServices.countService(key);
+  if (!count) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_NOT_FOUND,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  return res.json({ message: ROOM_MESSAGE.ROOM_FOUND, count });
+};
+
+module.exports = {
+  createRoom,
+  getAllRooms,
+  getRoom,
+  getRoomRandom,
+  countServices,
+};

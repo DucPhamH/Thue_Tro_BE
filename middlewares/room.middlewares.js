@@ -279,8 +279,19 @@ const getRoomValidator = validate(
   ["params"]
 );
 
+const countServiceValidator = validate(
+  checkSchema({
+    key: {
+      required: true,
+      trim: true,
+    },
+  }),
+  ["query"]
+);
+
 module.exports = {
   createRoomValidator,
   getAllRoomsValidator,
   getRoomValidator,
+  countServiceValidator,
 };
