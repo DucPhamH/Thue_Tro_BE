@@ -7,12 +7,14 @@ const {
   getRoom,
   getRoomRandom,
   countServices,
+  countPeoples,
 } = require("../controllers/room.controllers");
 const {
   createRoomValidator,
   getAllRoomsValidator,
   getRoomValidator,
   countServiceValidator,
+  countPeopleValidator,
 } = require("../middlewares/room.middlewares");
 
 router.post("/", createRoomValidator, wrapRequestHandler(createRoom));
@@ -23,5 +25,10 @@ router.get(
   "/countServices/count",
   countServiceValidator,
   wrapRequestHandler(countServices)
+);
+router.get(
+  "/countPeoples/count",
+  countPeopleValidator,
+  wrapRequestHandler(countPeoples)
 );
 module.exports = router;

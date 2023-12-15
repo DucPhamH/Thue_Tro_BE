@@ -47,6 +47,10 @@ class RoomServices {
     const count = await RoomModel.find(obj).countDocuments();
     return count;
   }
+  async countPeople(conditionsPeople) {
+    const count = await RoomModel.find(conditionsPeople).countDocuments();
+    return count;
+  }
 }
 
 const roomServices = new RoomServices();

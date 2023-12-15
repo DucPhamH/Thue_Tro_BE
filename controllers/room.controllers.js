@@ -309,10 +309,44 @@ const countServices = async (req, res) => {
   return res.json({ message: ROOM_MESSAGE.ROOM_FOUND, count });
 };
 
+const countPeoples = async (req, res) => {
+  const { number_or_people } = req.query;
+  const conditionsPeople = {};
+  if (number_or_people) {
+    if (parseInt(number_or_people) === 1) {
+      conditionsPeople.number_or_people = { $lte: 1 };
+    }
+    if (parseInt(number_or_people) === 2) {
+      conditionsPeople.number_or_people = { $lte: 2 };
+    }
+    if (parseInt(number_or_people) === 3) {
+      conditionsPeople.number_or_people = { $lte: 3 };
+    }
+    if (parseInt(number_or_people) === 4) {
+      conditionsPeople.number_or_people = { $lte: 4 };
+    }
+    if (parseInt(number_or_people) === 5) {
+      conditionsPeople.number_or_people = { $lte: 5 };
+    }
+    if (parseInt(number_or_people) === 6) {
+      conditionsPeople.number_or_people = { $gt: 5 };
+    }
+  }
+  const count = await roomServices.countPeople(conditionsPeople);
+  if (!count) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_NOT_FOUND,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  return res.json({ message: ROOM_MESSAGE.ROOM_FOUND, count });
+};
+
 module.exports = {
   createRoom,
   getAllRooms,
   getRoom,
   getRoomRandom,
   countServices,
+  countPeoples,
 };

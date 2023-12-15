@@ -289,9 +289,20 @@ const countServiceValidator = validate(
   ["query"]
 );
 
+const countPeopleValidator = validate(
+  checkSchema({
+    number_or_people: {
+      required: true,
+      trim: true,
+    },
+  }),
+  ["query"]
+);
+
 module.exports = {
   createRoomValidator,
   getAllRoomsValidator,
   getRoomValidator,
   countServiceValidator,
+  countPeopleValidator,
 };
