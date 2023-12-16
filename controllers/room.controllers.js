@@ -366,6 +366,23 @@ const countPeoples = async (req, res) => {
   });
 };
 
+const checkRooms = async (req, res) => {
+  const { _id, is_checked_information } = req.body;
+  console.log(is_checked_information);
+  const checkRoom = await roomServices.checkRoom({
+    _id: _id,
+    is_checked_information,
+  });
+
+  if (!checkRoom) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_CANNOT_CHECKED,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  return res.json({ message: ROOM_MESSAGE.ROOM_IS_CHECKED, checkRoom });
+};
+
 module.exports = {
   createRoom,
   getAllRooms,
@@ -373,4 +390,5 @@ module.exports = {
   getRoomRandom,
   countServices,
   countPeoples,
+  checkRooms,
 };

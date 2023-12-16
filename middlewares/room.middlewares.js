@@ -279,8 +279,25 @@ const getRoomValidator = validate(
   ["params"]
 );
 
+const checkRoomValidator = validate(
+  checkSchema({
+    _id: {
+      notEmpty: true,
+      trim: true,
+      isMongoId: true,
+    },
+    is_checked_information: {
+      notEmpty: true,
+      isBoolean: true,
+      trim: true,
+    },
+  }),
+  ["body"]
+);
+
 module.exports = {
   createRoomValidator,
   getAllRoomsValidator,
   getRoomValidator,
+  checkRoomValidator,
 };

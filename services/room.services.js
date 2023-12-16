@@ -100,6 +100,14 @@ class RoomServices {
       six_people,
     };
   }
+  async checkRoom({ _id, is_checked_information }) {
+    const checkRoom = await RoomModel.findByIdAndUpdate(
+      { _id: _id },
+      { is_checked_information: is_checked_information },
+      { new: true }
+    );
+    return checkRoom;
+  }
 }
 
 const roomServices = new RoomServices();

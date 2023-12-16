@@ -17,6 +17,8 @@ const ROOM_MESSAGE = {
   TYPE_OF_ROOM_NOT_FOUND: "Type of room must be 0 or 1 or 2",
   PRICE_MAX_LESS_THAN_PRICE_MIN: "Price max must be greater than price min",
   AREA_MAX_LESS_THAN_AREA_MIN: "Area max must be greater than area min",
+  ROOM_CANNOT_CHECKED: "Room cannot checked",
+  ROOM_IS_CHECKED: "Room is checked",
 };
 
 const ADDRESS_MESSAGE = {
