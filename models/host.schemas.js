@@ -7,6 +7,7 @@ const HostSchema = new mongoose.Schema(
     phone_number: { type: String, maxlength: 160, required: true },
     email: { type: String, maxlength: 160, required: true },
     address: { type: String, maxlength: 300, required: true },
+    roles: { type: Number, required: true },
   },
   {
     timestamps: true,

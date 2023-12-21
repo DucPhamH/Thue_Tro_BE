@@ -21,6 +21,14 @@ const ROOM_MESSAGE = {
   ROOM_IS_CHECKED: "Room is checked",
 };
 
+const USER_MESSAGE = {
+  USER_NAME_IS_EXIST: "User name is exist",
+  USER_NAME_IS_NOT_EXIST: "User name is not exist",
+  LOGIN_SUCCESS: "Login success",
+  YOU_NEED_TO_LOGIN: "You need to login",
+  TOKEN_IS_NOT_VALID: "Token is not valid",
+};
+
 const ADDRESS_MESSAGE = {
   DISTRICT_NOT_FOUND: "District not found",
   GET_ALL_DISTRICT_SUCCESS: "Get all district success",
@@ -28,4 +36,4 @@ const ADDRESS_MESSAGE = {
   GET_WARD_IN_DISTRICT_SUCCESS: "Get ward in district success",
 };
 
-module.exports = { MESSAGE, ROOM_MESSAGE, ADDRESS_MESSAGE };
+module.exports = { MESSAGE, ROOM_MESSAGE, ADDRESS_MESSAGE, USER_MESSAGE };

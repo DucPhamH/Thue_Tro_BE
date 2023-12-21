@@ -16,6 +16,7 @@ const {
   getRoomValidator,
   checkRoomValidator,
 } = require("../middlewares/room.middlewares");
+const { validateToken } = require("../middlewares/host.middlewares");
 
 router.post("/", createRoomValidator, wrapRequestHandler(createRoom));
 router.get("/", getAllRoomsValidator, wrapRequestHandler(getAllRooms));

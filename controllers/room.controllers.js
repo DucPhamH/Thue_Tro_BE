@@ -368,6 +368,8 @@ const countPeoples = async (req, res) => {
 
 const checkRooms = async (req, res) => {
   const { _id, is_checked_information } = req.body;
+  const user = req.user;
+  console.log(user);
   console.log(is_checked_information);
   const checkRoom = await roomServices.checkRoom({
     _id: _id,

@@ -4,4 +4,10 @@ const TypeOfRoom = {
   chung_cu_mini: 2,
 };
 
-module.exports = { TypeOfRoom };
+const TypeofUser = {
+  user: 0,
+  host: 1,
+  admin: 2,
+};
+
+module.exports = { TypeOfRoom, TypeofUser };
