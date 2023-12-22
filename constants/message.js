@@ -27,6 +27,7 @@ const USER_MESSAGE = {
   LOGIN_SUCCESS: "Login success",
   YOU_NEED_TO_LOGIN: "You need to login",
   TOKEN_IS_NOT_VALID: "Token is not valid",
+  LOGOUT_SUCCESS: "Logout success",
 };
 
 const ADDRESS_MESSAGE = {

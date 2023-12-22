@@ -10,7 +10,11 @@ const loginUser = async (req, res) => {
     data,
   });
 };
+const logoutUser = async (req, res) => {
+  res.json({ message: USER_MESSAGE.LOGOUT_SUCCESS });
+};
 
 module.exports = {
   loginUser,
+  logoutUser,
 };
