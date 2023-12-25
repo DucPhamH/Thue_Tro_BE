@@ -28,6 +28,8 @@ const USER_MESSAGE = {
   YOU_NEED_TO_LOGIN: "You need to login",
   TOKEN_IS_NOT_VALID: "Token is not valid",
   LOGOUT_SUCCESS: "Logout success",
+  YOU_NOT_ADMIN: "You not admin",
+  YOU_NOT_HOST: "You not host",
 };
 
 const ADDRESS_MESSAGE = {

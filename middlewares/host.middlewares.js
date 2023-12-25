@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const { ErrorWithStatus } = require("../utils/errors");
 const STATUS = require("../constants/status");
 const { envConfig } = require("../constants/config");
+const { TypeofUser } = require("../constants/enum");
 
 const loginValidator = validate(
   checkSchema({
@@ -72,7 +73,31 @@ const validateToken = async (req, res, next) => {
   }
 };
 
+const checkRoleAdmin = async (req, res, next) => {
+  const { roles } = req.user;
+  if (roles !== TypeofUser.admin) {
+    throw new ErrorWithStatus({
+      message: USER_MESSAGE.YOU_NOT_ADMIN,
+      status: STATUS.UNAUTHORIZED,
+    });
+  }
+  next();
+};
+
+const checkRoleHost = async (req, res, next) => {
+  const { roles } = req.user;
+  if (roles !== TypeofUser.host) {
+    throw new ErrorWithStatus({
+      message: USER_MESSAGE.YOU_NOT_HOST,
+      status: STATUS.UNAUTHORIZED,
+    });
+  }
+  next();
+};
+
 module.exports = {
   loginValidator,
   validateToken,
+  checkRoleAdmin,
+  checkRoleHost,
 };

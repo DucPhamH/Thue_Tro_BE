@@ -295,9 +295,100 @@ const checkRoomValidator = validate(
   ["body"]
 );
 
+const updateRoomValidator = validate(
+  checkSchema({
+    _id: {
+      notEmpty: true,
+      trim: true,
+      isMongoId: true,
+    },
+    name: {
+      optional: true,
+      isLength: {
+        options: { min: 3, max: 160 },
+      },
+      trim: true,
+    },
+    describe: {
+      optional: true,
+      trim: true,
+    },
+    number_or_people: {
+      optional: true,
+      isNumeric: true,
+      trim: true,
+    },
+    area: {
+      optional: true,
+      isNumeric: true,
+      trim: true,
+    },
+    price: {
+      optional: true,
+      isNumeric: true,
+      trim: true,
+    },
+    address: {
+      optional: true,
+      trim: true,
+    },
+    is_have_washing_machine: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_kitchen: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_dinning_table: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_parking_lot: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_television: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_bed: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_high_security: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_wardrobe: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_new: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+    is_have_refrigerator: {
+      optional: true,
+      isBoolean: true,
+      trim: true,
+    },
+  }),
+  ["body"]
+);
 module.exports = {
   createRoomValidator,
   getAllRoomsValidator,
   getRoomValidator,
   checkRoomValidator,
+  updateRoomValidator,
 };

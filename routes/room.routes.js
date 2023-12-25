@@ -16,7 +16,10 @@ const {
   getRoomValidator,
   checkRoomValidator,
 } = require("../middlewares/room.middlewares");
-const { validateToken } = require("../middlewares/host.middlewares");
+const {
+  validateToken,
+  checkRoleAdmin,
+} = require("../middlewares/host.middlewares");
 
 router.post("/", createRoomValidator, wrapRequestHandler(createRoom));
 router.get("/", getAllRoomsValidator, wrapRequestHandler(getAllRooms));
@@ -26,6 +29,8 @@ router.get("/countServices/count", wrapRequestHandler(countServices));
 router.get("/countPeoples/count", wrapRequestHandler(countPeoples));
 router.patch(
   "/checkRoom/check",
+  wrapRequestHandler(validateToken),
+  wrapRequestHandler(checkRoleAdmin),
   checkRoomValidator,
   wrapRequestHandler(checkRooms)
 );
