@@ -24,6 +24,26 @@ class RoomServices {
     const totalPage = Math.ceil(total / limit);
     return { rooms, totalPage, total };
   }
+  async updateRoom({ _id, conditions }) {
+    const updateRoom = await RoomModel.findByIdAndUpdate(
+      { _id: _id },
+      conditions,
+      { new: true }
+    );
+    return updateRoom;
+  }
+  async getRoomHost({ host_id, page, limit }) {
+    const rooms = await RoomModel.find({ host_id: host_id })
+      .populate("ward_id")
+      .populate("district_id")
+      .populate("host_id")
+      .populate("images")
+      .skip((page - 1) * limit)
+      .limit(limit);
+    const total = await RoomModel.countDocuments({ host_id: host_id });
+    const totalPage = Math.ceil(total / limit);
+    return { rooms, totalPage, total };
+  }
   async getRoom(id) {
     const room = await RoomModel.findById(id)
       .populate("ward_id")

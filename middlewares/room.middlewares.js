@@ -295,6 +295,20 @@ const checkRoomValidator = validate(
   ["body"]
 );
 
+const getRoomHostValidator = validate(
+  checkSchema({
+    page: {
+      optional: true,
+      trim: true,
+    },
+    limit: {
+      optional: true,
+      trim: true,
+    },
+  }),
+  ["query"]
+);
+
 const updateRoomValidator = validate(
   checkSchema({
     _id: {
@@ -391,4 +405,5 @@ module.exports = {
   getRoomValidator,
   checkRoomValidator,
   updateRoomValidator,
+  getRoomHostValidator,
 };

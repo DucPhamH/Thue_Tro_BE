@@ -385,6 +385,122 @@ const checkRooms = async (req, res) => {
   return res.json({ message: ROOM_MESSAGE.ROOM_IS_CHECKED, checkRoom });
 };
 
+const getRoomHost = async (req, res) => {
+  let { page, limit } = req.query;
+  const { _id } = req.user;
+  page = parseInt(page) || 1;
+  limit = parseInt(limit) || 10;
+  const { rooms, totalPage, total } = await roomServices.getRoomHost({
+    host_id: _id,
+    page,
+    limit,
+  });
+  if (!rooms) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_NOT_FOUND,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  res.json({
+    message: ROOM_MESSAGE.ROOM_FOUND,
+    rooms,
+    totalPage,
+    page,
+    limit,
+    total,
+  });
+};
+
+const updateRoom = async (req, res) => {
+  const {
+    _id,
+    name,
+    describe,
+    number_or_people,
+    area,
+    price,
+    address,
+    is_have_washing_machine,
+    is_have_kitchen,
+    is_have_dinning_table,
+    is_have_parking_lot,
+    is_have_television,
+    is_have_bed,
+    is_high_security,
+    is_have_wardrobe,
+    is_new,
+    is_have_refrigerator,
+  } = req.body;
+  const { _id: host_id } = req.user;
+  const roomHost = await RoomModel.findOne({ _id, host_id });
+  if (!roomHost) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_NOT_FOUND,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  let conditions = {};
+  if (name) {
+    conditions.name = name;
+  }
+  if (describe) {
+    conditions.describe = describe;
+  }
+  if (number_or_people) {
+    conditions.number_or_people = number_or_people;
+  }
+  if (area) {
+    conditions.area = area;
+  }
+  if (price) {
+    conditions.price = price;
+  }
+  if (address) {
+    conditions.address = address;
+  }
+  if (is_have_washing_machine) {
+    conditions.is_have_washing_machine = is_have_washing_machine;
+  }
+  if (is_have_kitchen) {
+    conditions.is_have_kitchen = is_have_kitchen;
+  }
+  if (is_have_dinning_table) {
+    conditions.is_have_dinning_table = is_have_dinning_table;
+  }
+  if (is_have_parking_lot) {
+    conditions.is_have_parking_lot = is_have_parking_lot;
+  }
+  if (is_have_television) {
+    conditions.is_have_television = is_have_television;
+  }
+  if (is_have_bed) {
+    conditions.is_have_bed = is_have_bed;
+  }
+  if (is_high_security) {
+    conditions.is_high_security = is_high_security;
+  }
+  if (is_have_wardrobe) {
+    conditions.is_have_wardrobe = is_have_wardrobe;
+  }
+  if (is_new) {
+    conditions.is_new = is_new;
+  }
+  if (is_have_refrigerator) {
+    conditions.is_have_refrigerator = is_have_refrigerator;
+  }
+  const room = await roomServices.updateRoom({
+    _id,
+    conditions,
+  });
+  if (!room) {
+    throw new ErrorWithStatus({
+      message: ROOM_MESSAGE.ROOM_NOT_FOUND,
+      status: STATUS.NOT_FOUND,
+    });
+  }
+  return res.json({ message: ROOM_MESSAGE.ROOM_UPDATED, room });
+};
+
 module.exports = {
   createRoom,
   getAllRooms,
@@ -393,4 +509,6 @@ module.exports = {
   countServices,
   countPeoples,
   checkRooms,
+  getRoomHost,
+  updateRoom,
 };

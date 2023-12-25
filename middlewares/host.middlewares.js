@@ -7,6 +7,7 @@ const { ErrorWithStatus } = require("../utils/errors");
 const STATUS = require("../constants/status");
 const { envConfig } = require("../constants/config");
 const { TypeofUser } = require("../constants/enum");
+const RoomModel = require("../models/room.schemas");
 
 const loginValidator = validate(
   checkSchema({
