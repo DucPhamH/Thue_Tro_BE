@@ -488,6 +488,7 @@ const updateRoom = async (req, res) => {
   if (is_have_refrigerator) {
     conditions.is_have_refrigerator = is_have_refrigerator;
   }
+  conditions.is_checked_information = false;
   const room = await roomServices.updateRoom({
     _id,
     conditions,

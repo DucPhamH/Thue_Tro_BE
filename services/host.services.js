@@ -13,7 +13,7 @@ class HostServices {
         roles: user.roles,
       },
       envConfig.accessTokenSecret,
-      { expiresIn: "30d" }
+      { expiresIn: "30" }
     );
 
     const data = {
